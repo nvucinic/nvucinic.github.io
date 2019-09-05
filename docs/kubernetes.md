@@ -1,4 +1,18 @@
+# Install Helm 
+
+Install Helm on to your local machine depending on your local OS. To do this, refer to See [Helm install steps](https://docs.helm.sh/using_helm/#installing-helm) 
+
+Initialize Helm on both your server and client with this command:
+```sh
+helm init
+```
+Please make sure your local system is authenticated to use kubectl.
+This will install tiller on the Kubernetes cluster which is a server side component that stores all your deployment version for easy rollbacks or rollforwards
+
 # Configure service account for Helm in GKE
+
+
+
 Run the following commands to setup and configure tiller to use this service account
 
 ```sh
