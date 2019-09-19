@@ -36,7 +36,7 @@
     
     
       
-        <title>Kubernetes - nvucinic.github.io</title>
+        <title>Prometheus - nvucinic.github.io</title>
       
     
     
@@ -83,7 +83,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#install-helm" tabindex="1" class="md-skip">
+      <a href="#openstack-sd-config" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -109,7 +109,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Kubernetes
+                Prometheus
               
             </span>
           
@@ -212,6 +212,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="../kubernetes/" title="Kubernetes" class="md-nav__link">
+      Kubernetes
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -221,11 +233,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Kubernetes
+        Prometheus
       </label>
     
-    <a href="./" title="Kubernetes" class="md-nav__link md-nav__link--active">
-      Kubernetes
+    <a href="./" title="Prometheus" class="md-nav__link md-nav__link--active">
+      Prometheus
     </a>
     
       
@@ -237,15 +249,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-helm" class="md-nav__link">
-    Install Helm
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configure-service-account-for-helm-in-gke" class="md-nav__link">
-    Configure service account for Helm in GKE
+  <a href="#openstack-sd-config" class="md-nav__link">
+    Openstack SD config
   </a>
   
 </li>
@@ -258,18 +263,6 @@
   
 </nav>
     
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../prometheus/" title="Prometheus" class="md-nav__link">
-      Prometheus
-    </a>
   </li>
 
     
@@ -292,15 +285,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-helm" class="md-nav__link">
-    Install Helm
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configure-service-account-for-helm-in-gke" class="md-nav__link">
-    Configure service account for Helm in GKE
+  <a href="#openstack-sd-config" class="md-nav__link">
+    Openstack SD config
   </a>
   
 </li>
@@ -322,28 +308,36 @@
               
                 
                 
-                  <h1>Kubernetes</h1>
+                  <h1>Prometheus</h1>
                 
-                <h2 id="install-helm">Install Helm</h2>
-<p>Install Helm on to your local machine depending on your local OS. To do this, refer to See <a href="https://docs.helm.sh/using_helm/#installing-helm">Helm install steps</a> </p>
-<p>Initialize Helm on both your server and client with this command:</p>
-<pre><code class="sh">helm init
-</code></pre>
+                <h2 id="openstack-sd-config">Openstack SD config</h2>
+<pre><code class="sh">
+   # Scrape OpenStack instances
+  - job_name: 'openstack'
+    openstack_sd_configs:
+      - identity_endpoint: http://
+        username: vucinic
+        project_name: {{ project_name }}
+        domain_name: Default
+        password: {{ password }}
+        region: {{ region}}
+        role: instance
+        port: 9100
 
-<p>Please make sure your local system is authenticated to use kubectl.
-This will install tiller on the Kubernetes cluster which is a server side component that stores all your deployment version for easy rollbacks or rollforwards</p>
-<h2 id="configure-service-account-for-helm-in-gke">Configure service account for Helm in GKE</h2>
-<p>Run the following commands to setup and configure tiller to use this service account:</p>
-<pre><code class="sh">kubectl create serviceaccount --namespace kube-system tiller
-</code></pre>
+    relabel_configs:
+      # Keep only active instances
+      - source_labels: [__meta_openstack_instance_status]
+        action: keep
+        regex: ACTIVE
+      # Keep only instances which are flagged for scraping
+      - source_labels: [__meta_openstack_tag_prometheus_io_scrape]
+        action: keep
+        regex: 'true'
 
-<pre><code class="sh">kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
-</code></pre>
+         # Replace the default instance by the OpenStack instance name
+      - source_labels: [__meta_openstack_instance_name]
+        target_label: instance
 
-<pre><code class="sh">kubectl patch deploy --namespace kube-system tiller-deploy -p '{&quot;spec&quot;:{&quot;template&quot;:{&quot;spec&quot;:{&quot;serviceAccount&quot;:&quot;tiller&quot;}}}}'
-</code></pre>
-
-<pre><code class="sh">helm init --service-account tiller --upgrade
 </code></pre>
                 
                   
@@ -365,7 +359,7 @@ This will install tiller on the Kubernetes cluster which is a server side compon
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href=".." title="nvucinic docs page" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../kubernetes/" title="Kubernetes" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -374,25 +368,11 @@ This will install tiller on the Kubernetes cluster which is a server side compon
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                nvucinic docs page
+                Kubernetes
               </span>
             </div>
           </a>
         
-        
-          <a href="../prometheus/" title="Prometheus" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Prometheus
-              </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
         
       </nav>
     </div>
