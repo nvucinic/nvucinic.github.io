@@ -83,7 +83,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#install-helm" tabindex="1" class="md-skip">
+      <a href="#ssh-to-node-in-aks" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -173,6 +173,8 @@
       
         
       
+        
+      
     </ul>
   </div>
 </nav>
@@ -212,6 +214,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="../helm/" title="Helm" class="md-nav__link">
+      Helm
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -237,15 +251,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-helm" class="md-nav__link">
-    Install Helm
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configure-service-account-for-helm-in-gke" class="md-nav__link">
-    Configure service account for Helm in GKE
+  <a href="#ssh-to-node-in-aks" class="md-nav__link">
+    SSH to node in AKS
   </a>
   
 </li>
@@ -292,15 +299,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-helm" class="md-nav__link">
-    Install Helm
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configure-service-account-for-helm-in-gke" class="md-nav__link">
-    Configure service account for Helm in GKE
+  <a href="#ssh-to-node-in-aks" class="md-nav__link">
+    SSH to node in AKS
   </a>
   
 </li>
@@ -324,26 +324,21 @@
                 
                   <h1>Kubernetes</h1>
                 
-                <h2 id="install-helm">Install Helm</h2>
-<p>Install Helm on to your local machine depending on your local OS. To do this, refer to See <a href="https://docs.helm.sh/using_helm/#installing-helm">Helm install steps</a> </p>
-<p>Initialize Helm on both your server and client with this command:</p>
-<pre><code class="sh">helm init
+                <h2 id="ssh-to-node-in-aks">SSH to node in AKS</h2>
+<p>Run a debian container image and attach a terminal session to it.</p>
+<pre><code class="sh">kubectl run -it --rm aks-ssh --image=debian
 </code></pre>
 
-<p>Please make sure your local system is authenticated to use kubectl.
-This will install tiller on the Kubernetes cluster which is a server side component that stores all your deployment version for easy rollbacks or rollforwards</p>
-<h2 id="configure-service-account-for-helm-in-gke">Configure service account for Helm in GKE</h2>
-<p>Run the following commands to setup and configure tiller to use this service account:</p>
-<pre><code class="sh">kubectl create serviceaccount --namespace kube-system tiller
+<p>Once the terminal session is connected to the container, install an SSH client using apt-get</p>
+<pre><code class="sh">apt-get update &amp;&amp; apt-get install openssh-client -y
 </code></pre>
 
-<pre><code class="sh">kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+<p>Copy your private SSH key into the helper pod. This private key is used to create the SSH into the AKS node.</p>
+<pre><code class="sh">kubectl cp ~/.ssh/id_rsa aks-ssh-554b746bcf-kbwvf:/id_rsa
 </code></pre>
 
-<pre><code class="sh">kubectl patch deploy --namespace kube-system tiller-deploy -p '{&quot;spec&quot;:{&quot;template&quot;:{&quot;spec&quot;:{&quot;serviceAccount&quot;:&quot;tiller&quot;}}}}'
-</code></pre>
-
-<pre><code class="sh">helm init --service-account tiller --upgrade
+<p>Connect to Azure node</p>
+<pre><code class="sh">ssh -i id_rsa azureuser@10.240.0.0
 </code></pre>
                 
                   
@@ -365,7 +360,7 @@ This will install tiller on the Kubernetes cluster which is a server side compon
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href=".." title="nvucinic's docs && tips" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../helm/" title="Helm" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -374,7 +369,7 @@ This will install tiller on the Kubernetes cluster which is a server side compon
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                nvucinic's docs && tips
+                Helm
               </span>
             </div>
           </a>
