@@ -252,6 +252,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#tilleres-helm" class="md-nav__link">
+    Tilleres Helm
+  </a>
+  
+</li>
+      
       
       
       
@@ -319,6 +326,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#tilleres-helm" class="md-nav__link">
+    Tilleres Helm
+  </a>
+  
+</li>
+      
       
       
       
@@ -358,6 +372,15 @@ This will install tiller on the Kubernetes cluster which is a server side compon
 </code></pre>
 
 <pre><code class="sh">helm init --service-account tiller --upgrade
+</code></pre>
+
+<h2 id="tilleres-helm">Tilleres Helm</h2>
+<p>Run Helm and Tiller without install tiller in kubernetes cluster</p>
+<pre><code class="sh">$ export TILLER_NAMESPACE=default
+$ export HELM_HOST=localhost:44134
+$ tiller --storage=secret &amp;
+
+$ helm install installdir/
 </code></pre>
                 
                   
