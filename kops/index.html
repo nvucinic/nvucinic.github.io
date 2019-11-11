@@ -36,7 +36,7 @@
     
     
       
-        <title>Helm - nvucinic.github.io</title>
+        <title>Kops - nvucinic.github.io</title>
       
     
     
@@ -83,7 +83,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#install-helm" tabindex="1" class="md-skip">
+      <a href="#kops-on-aws" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -109,7 +109,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Helm
+                Kops
               
             </span>
           
@@ -216,6 +216,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="../helm/" title="Helm" class="md-nav__link">
+      Helm
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -225,11 +237,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Helm
+        Kops
       </label>
     
-    <a href="./" title="Helm" class="md-nav__link md-nav__link--active">
-      Helm
+    <a href="./" title="Kops" class="md-nav__link md-nav__link--active">
+      Kops
     </a>
     
       
@@ -241,22 +253,78 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-helm" class="md-nav__link">
-    Install Helm
+  <a href="#kops-on-aws" class="md-nav__link">
+    Kops on AWS
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configure-service-account-for-helm-in-gke" class="md-nav__link">
-    Configure service account for Helm in GKE
+  <a href="#install-kops" class="md-nav__link">
+    Install Kops
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tilleres-helm" class="md-nav__link">
-    Tilleres Helm
+  <a href="#export-aws-env" class="md-nav__link">
+    Export AWS env
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-iam-user-and-group-add-user-to-group" class="md-nav__link">
+    Create iam user and group, add user to group
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-ssh-keys" class="md-nav__link">
+    Create ssh keys
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attach-group-policys-for-kops-group-do-not-use-in-production" class="md-nav__link">
+    Attach group policys for kops group (do not use in production!)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-s3-bucket-for-kops-state" class="md-nav__link">
+    Create s3 bucket for kops state
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export-kops-state-stored" class="md-nav__link">
+    Export kops state stored
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-kops-cluster-with-5-master-node-and-3-worker-nodes" class="md-nav__link">
+    Create kops cluster with 5 master node and 3 worker nodes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-output" class="md-nav__link">
+    Command output
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handy-kops-commands" class="md-nav__link">
+    Handy kops commands
   </a>
   
 </li>
@@ -269,18 +337,6 @@
   
 </nav>
     
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../kops/" title="Kops" class="md-nav__link">
-      Kops
-    </a>
   </li>
 
     
@@ -327,22 +383,78 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-helm" class="md-nav__link">
-    Install Helm
+  <a href="#kops-on-aws" class="md-nav__link">
+    Kops on AWS
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#configure-service-account-for-helm-in-gke" class="md-nav__link">
-    Configure service account for Helm in GKE
+  <a href="#install-kops" class="md-nav__link">
+    Install Kops
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tilleres-helm" class="md-nav__link">
-    Tilleres Helm
+  <a href="#export-aws-env" class="md-nav__link">
+    Export AWS env
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-iam-user-and-group-add-user-to-group" class="md-nav__link">
+    Create iam user and group, add user to group
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-ssh-keys" class="md-nav__link">
+    Create ssh keys
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attach-group-policys-for-kops-group-do-not-use-in-production" class="md-nav__link">
+    Attach group policys for kops group (do not use in production!)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-s3-bucket-for-kops-state" class="md-nav__link">
+    Create s3 bucket for kops state
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#export-kops-state-stored" class="md-nav__link">
+    Export kops state stored
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-kops-cluster-with-5-master-node-and-3-worker-nodes" class="md-nav__link">
+    Create kops cluster with 5 master node and 3 worker nodes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-output" class="md-nav__link">
+    Command output
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handy-kops-commands" class="md-nav__link">
+    Handy kops commands
   </a>
   
 </li>
@@ -364,37 +476,78 @@
               
                 
                 
-                  <h1>Helm</h1>
+                  <h1>Kops</h1>
                 
-                <h2 id="install-helm">Install Helm</h2>
-<p>Install Helm on to your local machine depending on your local OS. To do this, refer to See <a href="https://docs.helm.sh/using_helm/#installing-helm">Helm install steps</a> </p>
-<p>Initialize Helm on both your server and client with this command:</p>
-<pre><code class="sh">helm init
+                <h2 id="kops-on-aws">Kops on AWS</h2>
+<h2 id="install-kops">Install Kops</h2>
+<p>MacOS kops install: </p>
+<pre><code class="sh">brew update &amp;&amp; brew install kops
 </code></pre>
 
-<p>Please make sure your local system is authenticated to use kubectl.
-This will install tiller on the Kubernetes cluster which is a server side component that stores all your deployment version for easy rollbacks or rollforwards</p>
-<h2 id="configure-service-account-for-helm-in-gke">Configure service account for Helm in GKE</h2>
-<p>Run the following commands to setup and configure tiller to use this service account:</p>
-<pre><code class="sh">kubectl create serviceaccount --namespace kube-system tiller
+<p>Alternative install from source</p>
+<pre><code class="sh">$ curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest |grep tag_name | cut -d'&quot;' -f 4)/kops-darwin-amd64
+
+$ chmod +x ./kops
+
+$ sudo mv ./kops/usr/local/bin/
 </code></pre>
 
-<pre><code class="sh">kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+<h2 id="export-aws-env">Export AWS env</h2>
+<pre><code class="sh">$ export AWS_DEFAULT_REGION=eu-west-1   ## default region
+$ export AWS_ACCESS_KEY_ID=xxx   ## access key
+$ export AWS_SECRET_ACCESS_KEY=xxx  ## secret access key 
+$ export ZONES=$(aws ec2 describe-availability-zones | jq -r '.AvailabilityZones[].ZoneName' | tr '\n' ',' | tr -d ' ')  ## availability zones for nodes
+$ export NAME=nvkops.k8s.local ## cluster name 
+$ export BUCKET_NAME=nvkops-$(date+%s) ## state bucket name
 </code></pre>
 
-<pre><code class="sh">kubectl patch deploy --namespace kube-system tiller-deploy -p '{&quot;spec&quot;:{&quot;template&quot;:{&quot;spec&quot;:{&quot;serviceAccount&quot;:&quot;tiller&quot;}}}}'
+<h2 id="create-iam-user-and-group-add-user-to-group">Create iam user and group, add user to group</h2>
+<pre><code class="sh">$ aws iam create-group --group-name kops
+$ aws iam create-user --user-name kops
+$ aws iam add-user-to-group --user-name kops --group-name kops
 </code></pre>
 
-<pre><code class="sh">helm init --service-account tiller --upgrade
+<h2 id="create-ssh-keys">Create ssh keys</h2>
+<pre><code class="sh">$ aws iam create-access-key --user-name kops &gt; kops-creds
+$ aws ec2 create-key-pair --key-name nvkops | jq -r '.KeyMaterial' &gt; nvkops.pem
+$ chmod 400 nvkops.pem 
+$ ssh-keygen -y -f nvkops.pem &gt; nvkops.pub 
 </code></pre>
 
-<h2 id="tilleres-helm">Tilleres Helm</h2>
-<p>Run Helm and Tiller without install tiller in kubernetes cluster</p>
-<pre><code class="sh">$ export TILLER_NAMESPACE=default
-$ export HELM_HOST=localhost:44134
-$ tiller --storage=secret &amp;
+<h2 id="attach-group-policys-for-kops-group-do-not-use-in-production">Attach group policys for kops group (do not use in production!)</h2>
+<pre><code class="sh">aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess --group-name kops --profile devsup-test
+aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess --group-name kops --profile devsup-test
+aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonVPCFullAccess --group-name kops --profile devsup-test
+aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/IAMFullAccess --group-name kops --profile devsup-test
+</code></pre>
 
-$ helm install installdir/
+<h2 id="create-s3-bucket-for-kops-state">Create s3 bucket for kops state</h2>
+<pre><code class="sh">$ aws s3api create-bucket --bucket $BUCKET_NAME  --create-bucket-configuration LocationConstraint=$AWS_DEFAULT_REGION
+</code></pre>
+
+<h2 id="export-kops-state-stored">Export kops state stored</h2>
+<pre><code class="sh">export KOPS_STATE_STORE=s3://$BUCKET_NAME
+</code></pre>
+
+<h2 id="create-kops-cluster-with-5-master-node-and-3-worker-nodes">Create kops cluster with 5 master node and 3 worker nodes</h2>
+<pre><code class="sh">kops create cluster --name $NAME  --master-count 5 --node-count 3  --node-size t2.small --master-size t2.small  --zones $ZONES --master-zones $ZONES  --ssh-public-key nvkops.pub --networking kubenet --kubernetes-version v1.16 --yes
+</code></pre>
+
+<h2 id="command-output">Command output</h2>
+<pre><code class="sh">kops has set your kubectl context to nvkops.k8s.local
+
+Cluster is starting.  It should be ready in a few minutes.
+Suggestions:
+ * validate cluster: kops validate cluster
+ * list nodes: kubectl get nodes --show-labels
+ * ssh to the master: ssh -i ~/.ssh/id_rsa admin@api.nvkops.k8s.local
+The admin user is specific to Debian. If not using Debian please use the appropriate user based on your OS.
+* read about installing addons: https://github.com/kubernetes/kops/blob/master/docs/addons.md
+</code></pre>
+
+<h2 id="handy-kops-commands">Handy kops commands</h2>
+<pre><code class="sh">$ kops get cluster
+$ kops validate cluster
 </code></pre>
                 
                   
@@ -416,7 +569,7 @@ $ helm install installdir/
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href=".." title="nvucinic's docs && tips" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../helm/" title="Helm" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -425,19 +578,19 @@ $ helm install installdir/
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                nvucinic's docs && tips
+                Helm
               </span>
             </div>
           </a>
         
         
-          <a href="../kops/" title="Kops" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../kubernetes/" title="Kubernetes" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Kops
+                Kubernetes
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
